@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   updateReportList();
+  startLiveClock();
 });
 
 document.getElementById("toggleTheme").addEventListener("click", () => {
@@ -100,4 +101,18 @@ function updateReportList() {
     `;
     container.appendChild(div);
   });
+}
+
+function startLiveClock() {
+  const clock = document.createElement("div");
+  clock.id = "liveClock";
+  clock.style.fontSize = "1rem";
+  clock.style.fontWeight = "bold";
+  clock.style.marginTop = "8px";
+  document.querySelector("header").appendChild(clock);
+
+  setInterval(() => {
+    const now = new Date();
+    clock.innerText = `⏰ ${now.toLocaleTimeString()}`;
+  }, 1000);
 }
