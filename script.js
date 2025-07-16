@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updateReportList();
   startLiveClock();
+  autoFillLocation();
 });
 
 document.getElementById("toggleTheme").addEventListener("click", () => {
@@ -115,4 +116,24 @@ function startLiveClock() {
     const now = new Date();
     clock.innerText = `⏰ ${now.toLocaleTimeString()}`;
   }, 1000);
+}
+
+function autoFillLocation() {
+  if (!navigator.geolocation) return;
+
+  navigator.geolocation.getCurrentPosition(async (pos) => {
+    const { latitude, longitude } = pos.coords;
+
+    try {
+      const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
+      const data = await res.json();
+      const loc = data.address?.road || data.display_name || "";
+      if (loc) {
+        document.getElementById("location").value = loc;
+        localStorage.setItem("draft_location", loc);
+      }
+    } catch (err) {
+      console.warn("Failed to fetch location:", err);
+    }
+  });
 }
