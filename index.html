@@ -1,30 +1,44 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Neighborhood Watch App</title>
+  <title>Neighborhood Watch</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
     <h1>Neighborhood Watch</h1>
     <p>Report and view incidents in your area</p>
+    <div id="welcomeMessage" style="text-align: center; font-size: 1rem; color: #555;"></div>
   </header>
 
-  <section>
-    <form id="reportForm">
+  <main>
+    <form id="reportForm" class="report-form">
       <input type="text" id="title" placeholder="Incident Title" required />
       <textarea id="description" placeholder="Describe the incident" required></textarea>
       <input type="text" id="location" placeholder="Location (e.g., Street Name)" required />
       <button type="submit">Submit Report</button>
     </form>
-  </section>
 
-  <section>
-    <h2 style="text-align: center;">Reported Incidents</h2>
-    <div id="reportList"></div>
-  </section>
+    <div class="filter-bar">
+      <input type="text" id="searchInput" placeholder="Search reports..." />
+      <select id="sortOrder">
+        <option value="newest" selected>Newest First</option>
+        <option value="oldest">Oldest First</option>
+      </select>
+    </div>
+
+    <div class="buttons">
+      <button id="clearReports">🗑️ Clear All Reports</button>
+      <button id="exportReports">📤 Export Reports</button>
+      <button id="toggleTheme">🌓 Toggle Theme</button>
+    </div>
+
+    <h2>📝 Reported Incidents</h2>
+    <div id="reportList" class="report-list"></div>
+  </main>
 
   <script src="script.js"></script>
 </body>
